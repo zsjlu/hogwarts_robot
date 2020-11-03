@@ -1,1 +1,2 @@
-# 第一次python学习
+# 第一次作业
+./homework/python_practice/game
