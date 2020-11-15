@@ -10,7 +10,9 @@
 ./homework/python_practice/game_opp/homework_dragon_oath 模块
 
 
-## 第四阶段 第一次作业
+## 第四阶段 
+
+### 第一次作业
 
 ./homework/pytest_learn/tests/test_calc.py
 
@@ -20,3 +22,9 @@
     pytest -s -q --alluredir=./report
     
     allure serve ./report
+    
+### 第二次作业
+
+./homework/pytest_learn/tests/test_par_calc.py
+
+- 使用pyyaml进行案例数据驱动

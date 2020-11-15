@@ -5,7 +5,7 @@
 import pytest
 from homework.pytest_learn.core.test_method import Calc
 
-
+@pytest.mark.skip
 class Test_Suite():
     def setup_class(self):
         self.calc = Calc()
@@ -42,7 +42,6 @@ class Test_Suite():
     ])
     def test_div(self, a, b, c):
         assert self.calc.div(a, b) == c
-
 
     def test_div1(self):
         """除0, 报错除0错误"""
