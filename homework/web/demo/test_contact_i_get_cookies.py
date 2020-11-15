@@ -50,16 +50,29 @@ class TestWX:
 
         # 查看是否添加成功
         self.driver.find_element(By.XPATH, '//*[@id="menu_contacts"]/span').click()
-
         value = 'robot'
         locator = (By.CSS_SELECTOR, ".ww_checkbox")
         WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(locator))
-
+        sleep(2)
         elements = self.driver.find_elements(By.CSS_SELECTOR, ".member_colRight_memberTable_td:nth-child(2)")
         titles = [element.get_attribute("title") for element in elements]
         assert value in titles
 
-        # # 删除第一条记录
-        # self.driver.find_element(By.CSS_SELECTOR, '.ww_checkbox:first').click()
-        # self.driver.find_element(By.CSS_SELECTOR, '.js_delete:last').click()
+    # def test_contact_delete(self):
+    #     # 删除第一条记录
+    #     # 打开首页
+    #     self.driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
+    #     # 去除cookie中的过期时间
+    #     for cookie in self.cookies:
+    #         if 'expiry' in cookie.keys():
+    #             cookie.pop('expiry')
+    #         self.driver.add_cookie(cookie)
+    #     # 添加cookies后刷新页面
+    #     self.driver.refresh()
+    #     self.driver.find_element(By.XPATH, '//*[@id="menu_contacts"]/span').click()
+    #     sleep(5)
+    #     locator = (By.CSS_SELECTOR, ".ww_checkbox")
+    #     WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(locator))
+    #     self.driver.find_element(By.CSS_SELECTOR, '.ww_checkbox:first').click()
+    #     self.driver.find_element(By.CSS_SELECTOR, '.js_delete:last').click()
 

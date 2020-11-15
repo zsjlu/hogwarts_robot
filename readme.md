@@ -28,3 +28,9 @@
 ./homework/pytest_learn/tests/test_par_calc.py
 
 - 使用pyyaml进行案例数据驱动
+
+## 第五阶段
+
+./homework/web/demo/test_contact_i_get_cookies.py
+
+- 浏览器复用，获取cookies
