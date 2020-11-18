@@ -49,6 +49,7 @@ e': False, 'value': 'GA1.2.1587430255.1605624688'}, {'domain': '.qq.com', 'expir
         self.driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
         self.driver.find_element(By.ID, "menu_contacts").click()
 
+    @pytest.mark.skip()
     def test_cookie_for_contact(self):
         # 打开首页
         self.driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
