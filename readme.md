@@ -36,3 +36,8 @@
 ./homework/web/demo/test_contact_i_get_cookies.py
 
 - 浏览器复用，获取cookies
+
+### 第二次作业
+./homework/web/po_demo
+
+- 问题.一个页面封装的操作的返回值：当前页面对象；其他页面对象；用于断言的元素,这些返回值我们是根据实际页面情况进行返回吗？这里是否是由一条自动化案例的测试重点来界定的。

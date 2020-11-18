@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
-# @Time    :2020/11/15 14:27
+# @Time    :2020/11/17 22:32
 # @Author  :robot_zsj
-# @File    :test_contact_i_get_cookies.py
-from time import sleep
-
-import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+# @File    :index_page.py
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 
-# @pytest.mark.skip()
-class TestWX:
+from homework.web.po_demo.page.add_member_page import Add_Member_Page
+from homework.web.po_demo.page.contact_page import Contact_Page
+from homework.web.po_demo.page.web_base import Web_Base
+
+
+class Index_Page(Web_Base):
+    _base_url = "https://work.weixin.qq.com/wework_admin/frame#index"
+
     cookies = [{'domain': '.work.weixin.qq.com', 'httpOnly': False, 'name': 'wwrtx.vid', 'path': '/', 'secure': False, 'value': '1688851254523584'}, {'domain': '.work.weixin.qq.com', 'h\
 ttpOnly': True, 'name': 'wwrtx.vst', 'path': '/', 'secure': False, 'value': 'vkWKVuNXSAjnQ0j5BIbJ-c0tf1D44zromttyaOnRFD97TFsi2HMUJi00WDMxbcEwK5TyfYjMtx7Ie6k6WKXXpU7beYuYyXRyskdIjOI6Ajszi4G\
 ncM-hPW-evQvF8HmM-QTmtLD7iTTQ-xD2fMjsZUi2WlTo1RiyxgxsM_QqQZCr5Cn9BL8kfpz--Ahls58R7ZUGpCeUebZ4AknA4WgwvjZB3UGvOKHZvGypQ59G_KX6z5BIAXtrTbdjUcCIgYFV0QoC74u_3Ia8c5VJ5N-6tQ'}, {'domain': '.work\
@@ -33,70 +32,27 @@ e': False, 'value': 'GA1.2.1587430255.1605624688'}, {'domain': '.qq.com', 'expir
  {'domain': '.qq.com', 'expiry': 2147385600, 'httpOnly': False, 'name': 'pgv_pvi', 'path': '/', 'secure': False, 'value': '1828635648'}]
 
 
-    def setup(self):
-        option = Options()
-        # 注意 9222 端口要与命令行启动的端口保持一致 --remote-debugging-port=9222
-        # option.debugger_address = "127.0.0.1:9222"
-        self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait(5)
-
-    def teardown(self):
-        self.driver.quit()
-        pass
-
-    @pytest.mark.skip()
-    def test_case1(self):
-        self.driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
-        self.driver.find_element(By.ID, "menu_contacts").click()
-
-    def test_cookie_for_contact(self):
-        # 打开首页
-        self.driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
-        # 去除cookie中的过期时间
+    # def __init__(self):
+    #     option = Options()
+    #     option.debugger_address = "127.0.0.1:9222"
+    #     self.driver = webdriver.Chrome(options=option)
+    #     self.driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
+    def add_cookies(self):
         for cookie in self.cookies:
             if 'expiry' in cookie.keys():
                 cookie.pop('expiry')
             self.driver.add_cookie(cookie)
         # 添加cookies后刷新页面
         self.driver.refresh()
-        # 点击添加联系人按钮，输入信息，并确认
-        self.driver.find_element(By.XPATH, '//*[@id="_hmt_click"]/div[1]/div[4]/div[2]/a[1]/div/span[2]').click()
-        self.driver.find_element(By.ID, 'username').send_keys('robot')
-        self.driver.find_element(By.ID, 'memberAdd_acctid').send_keys('13052939116@qq.com')
-        self.driver.find_element(By.ID, 'memberAdd_phone').send_keys('18166933948')
-        self.driver.find_element(By.CSS_SELECTOR, '.js_btn_save').click()
+        return self
 
-        # 查看是否添加成功
-        self.driver.find_element(By.XPATH, '//*[@id="menu_contacts"]/span').click()
-        value = 'robot'
-        locator = (By.CSS_SELECTOR, ".ww_checkbox")
-        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(locator))
-        sleep(1)
-        elements = self.driver.find_elements(By.CSS_SELECTOR, ".member_colRight_memberTable_td:nth-child(2)")
-        titles = [element.get_attribute("title") for element in elements]
-        assert value in titles
+    # 添加成员
+    def click_add_member(self):
+        self.find(By.CSS_SELECTOR, ".index_service_cnt_itemWrap:nth-child(1)").click()
+        return Add_Member_Page(self.driver)
 
-    def test_contact_delete(self):
-        # 删除第一条记录
-        # 打开首页
-        self.driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
-        # 去除cookie中的过期时间
-        for cookie in self.cookies:
-            if 'expiry' in cookie.keys():
-                cookie.pop('expiry')
-            self.driver.add_cookie(cookie)
-        # 添加cookies后刷新页面
-        self.driver.refresh()
+    # 成员列表
+    def contact_manage(self):
         # 点击进入通讯录列表
         self.driver.find_element(By.XPATH, '//*[@id="menu_contacts"]/span').click()
-        sleep(2)
-        locator = (By.XPATH, '//*[@id="member_list"]/tr[1]/td[1]/input')
-        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(locator))
-        self.driver.find_element(By.XPATH, '//*[@id="member_list"]/tr[1]/td[1]/input').click()
-        self.driver.find_element(By.XPATH, '//*/div/div[2]/div/div[2]/div[3]/div[1]/a[3]').click()
-        self.driver.find_element(By.XPATH, '//*[@id="__dialog__MNDialog__"]//div[3]/a[1]').click()
-        number = self.driver.find_element(By.XPATH, '//*//span/span/span[2]')
-        sleep(2)
-        assert "1人" in number.text
-
-
+        return Contact_Page(self.driver)
