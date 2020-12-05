@@ -5,7 +5,7 @@
 from time import sleep
 from appium import webdriver
 
-# 微信更新，修改了元素的定位信息，添加隐式等待
+# 企业微信版本不同，修改了元素的定位信息，添加隐式等待
 caps = {}
 caps["platformName"] = "Android"
 caps["deviceName"] = "hogwarts"

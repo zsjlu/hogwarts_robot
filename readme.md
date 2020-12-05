@@ -42,10 +42,24 @@
 
 - 问题.一个页面封装的操作的返回值：当前页面对象；其他页面对象；用于断言的元素,这些返回值我们是根据实际页面情况进行返回吗？这里是否是由一条自动化案例的测试重点来界定的。
 
-## 第六阶段 APP自动化
+## 第六阶段 APP自动化（使用了老版本的企业微信，元素定位与老师不同）
 
 ### 第一次作业
 
 ./homework/app/demo/demo2.py
 
 - demo1.py为练习脚本
+
+### 第二次作业
+
+./homework/app/po_demo
+
+- 新增内容：
+    - contact_list_page中增加find_member()方法进行搜索按钮跳转
+    
+    - 新增page：
+    
+        - find_contact_page.py
+        - persional_*.py
+
+- 问题：请问老师，为什么我在base_page中设置的logging无法打印和写入日志？
